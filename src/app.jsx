@@ -30,6 +30,22 @@ const Element = React.createElement(
   )
 )
 
+function gantiElement(){
+  // const root = ReactDOM.createRoot(document.getElementById("root"));
+
+  const tick = ()=>{
+    const element = (
+      <div>
+        <h1>Hello World</h1>
+        <h3>it is at : {new Date().toLocaleString()}</h3>
+      </div>
+    );
+    root.render(element);
+  }
+
+  setInterval(tick,1000);
+}
+
 root.render(
   <>
   <h1>Hello world</h1>
@@ -40,5 +56,8 @@ root.render(
   <a href="https:www.google.com">go to google</a><br />
   <a href={url} target="_bank">go to my instagram</a> {/* ini aman terhindari dari injection */}
   {Element}
+  <p>element ui yang sudah di render kita tidak bisa mengubahnya baik menambahkan children ataupun attribute,salah satu cara untuk mengupdate nya adalah membuat element baru dan meletakkannya di <code>root.render()</code></p>
+
+  <button type="button" onClick={gantiElement}>ganti element</button>
   </>
 )
