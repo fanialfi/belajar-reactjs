@@ -1,21 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./components/app";
 
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 const name = "john doe";
 
-function formatName(name){
-  return `${name.firstName} ${name.lastName}`;
-}
-
 const data = {
   firstName:"fani",
   lastName:"alfirdaus"
 };
 
-const url = "https://www.instagram.com/fanialfi_";
+
 
 // membuat element menggunakan react
 // React.createElement(type,props,...children)
@@ -48,13 +45,7 @@ function gantiElement(){
 
 root.render(
   <>
-  <h1>Hello world</h1>
-  <p>hai nama saya {name}</p>
-  <p>hai nama saya {formatName(data)}</p>
-
-  {/* menggunakan atribut di jsx */}
-  <a href="https:www.google.com">go to google</a><br />
-  <a href={url} target="_bank">go to my instagram</a> {/* ini aman terhindari dari injection */}
+  <App name={name} data={data}/>
   {Element}
   <p>element ui yang sudah di render kita tidak bisa mengubahnya baik menambahkan children ataupun attribute,salah satu cara untuk mengupdate nya adalah membuat element baru dan meletakkannya di <code>root.render()</code></p>
 
