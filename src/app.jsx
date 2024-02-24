@@ -20,8 +20,23 @@ function Tick(){
   }
 }
 
-setInterval(()=>{
-  root.render(
-    <Tick date={new Date()}/>
+function changeBackground(){
+  const max = 255;
+  let r = Math.floor(Math.random() * max);
+  let g = Math.floor(Math.random() * max);
+  let b = Math.floor(Math.random() * max);
+  document.body.style.backgroundColor = `rgb(${r},${g},${b})`
+}
+
+function Button(){
+  return (
+    <button type="button" onClick={changeBackground}>click</button>
   )
+}
+
+setInterval(()=>{
+  root.render(<>
+  <Tick date={new Date()}/>
+  <Button />
+  </>)
 },  1000)
