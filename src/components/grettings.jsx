@@ -20,7 +20,7 @@ function UserGretting(){
   return (<>
     <h1>Hello User</h1>
     <Clock />
-    <button type="button" onClick={randomColor}>change color backgrounf</button>
+    <button type="button" onClick={randomColor}>change color background</button>
   </>)
 }
 
