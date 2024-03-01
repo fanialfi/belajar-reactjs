@@ -1,15 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Gretting from "./components/grettings";
-import List from "./components/list";
-import Chai from "./components/pure";
+import { ToolBar } from "./components/respondingEvents";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<React.StrictMode>
- <Gretting isLoggedIn={false}/>
-  <List/>
-  <Chai /> 
+  <ToolBar/>
 </React.StrictMode>)
 
 export { root };
