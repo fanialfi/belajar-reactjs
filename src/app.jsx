@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Form from "./components/stateAsSnapsot";
+import Form from "./components/updatingObjectInState";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
