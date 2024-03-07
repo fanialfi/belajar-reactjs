@@ -1,11 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Form from "./components/managingState";
+import { useState } from "react";
 
+function Square(){
+  const [value, setValue] = useState("");
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<React.StrictMode>
-  <Form/>
-</React.StrictMode>)
+  function handleButtonClick(){
+    setValue("X");
+  }
 
-export { root };
+  return <button className="square" onClick={handleButtonClick}>{value}</button>
+}
+
+export default function Board(){
+  return (<div className="board">
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+    <Square/>
+  </div>)
+}
