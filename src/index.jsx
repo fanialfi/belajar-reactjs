@@ -1,11 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import App from "./app"
-import "./index.css"
-const root = ReactDOM.createRoot(document.getElementById("root"))
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Game from "./app";
+import "./index.css";
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App/>
+    <Game/>
   </React.StrictMode>
 )

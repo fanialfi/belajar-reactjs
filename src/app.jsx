@@ -1,43 +1,59 @@
 import { useState } from "react";
-import calculateWinner from "./lib/calculateWinner";
+import Board from "./board";
 
-function Square({value, onSquareClick}){
-  return <button className="square" onClick={onSquareClick}>{value}</button>
-}
+export default function Game(){
+  // digunakan untuk bergiliran pemain
+  // apakah gilirannya "X" atau "O" yang secara default adalah "X" untuk pertama kalinya
+  // setiap kali pemain bergerak nilai dari xIsNext akan dibalik
+  const [xIsNext, setXIsNext] = useState(true); 
+  
+  // digunakan untuk mengelola history dengan nilai default 1 element array 
+  // dimana 1 element tersebut akan berisi keadaan terakhir dari Board
+  const [history, setHistory] = useState([Array(9).fill(null)]);
 
-export default function Board(){
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
+  // digunakan untuk implementasi kembali ke belakang 
+  // dan digunakan untuk melacak langkah mana yang sedang dilihat oleh pengguna
+  const [currentMove, setCurrentMove] = useState(0);
 
-  function handleSquareClick(index){
-    if (squares[index] || calculateWinner(squares)) return; // jika sudah ada isinya maka langsung return tanpa menjalankan script di bawah
+  // berisi sebuah array digunakan untuk menyimpan keadaan terakhir dari history 
+  // yang akan di parsing ke element Board
+  const currentSquare = history[currentMove];
 
-    const nextSquare = squares.slice();
-    
-    // if (xIsNext){
-    //   nextSquare[index] = "X";
-    // }else{
-    //   nextSquare[index] = "O";
-    // }
-    nextSquare[index] = (xIsNext) ? "X" :"O";
-
-    setSquares(nextSquare);
+  function handlePlay(nextSquares){
+    const nextHistory = [...history.slice(0, currentMove + 1),nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
     setXIsNext(!xIsNext);
   }
 
-  const winner = calculateWinner(squares);
-  let status = ""
-  if (winner){
-    status = `winner : ${winner}`
-  }else{
-    status = `next player : ${(xIsNext) ? "X":"O"}`
+  function jumpTo(nextMove){
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
   }
 
-  return (<>
-  <div className="status">{status}</div>
-  <div className="board">
-    {squares.map((value, index) => (
-      <Square key={index} value={value} onSquareClick={()=>{handleSquareClick(index)}}/>
-    ))}
-  </div></>)
+  const move = history.map((squares,indexMove) => {
+    let description;
+    if (indexMove > 0){
+      description = `Pergi Ke Langka #${indexMove}`;
+    }else{
+      description = `Pergi Ke Awal Permainan`;
+    }
+
+    return (<li key={indexMove}>
+      <button type="button" onClick={() => {jumpTo(indexMove)}}>{description}</button>
+    </li>)
+  })
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquare} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>
+          {move}
+        </ol>
+      </div>
+    </div>
+  )
 }
