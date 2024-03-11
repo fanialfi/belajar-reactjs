@@ -1,59 +1,64 @@
 import { useState } from "react";
-import Board from "./board";
 
-export default function Game(){
-  // digunakan untuk bergiliran pemain
-  // apakah gilirannya "X" atau "O" yang secara default adalah "X" untuk pertama kalinya
-  // setiap kali pemain bergerak nilai dari xIsNext akan dibalik
-  const [xIsNext, setXIsNext] = useState(true); 
-  
-  // digunakan untuk mengelola history dengan nilai default 1 element array 
-  // dimana 1 element tersebut akan berisi keadaan terakhir dari Board
-  const [history, setHistory] = useState([Array(9).fill(null)]);
+export default function Board(){
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsnext] = useState(true);
 
-  // digunakan untuk implementasi kembali ke belakang 
-  // dan digunakan untuk melacak langkah mana yang sedang dilihat oleh pengguna
-  const [currentMove, setCurrentMove] = useState(0);
+  function handleSquareClick(index){
+    if(squares[index] || calculateWinner(squares)) return;
+    
+    const squaresCopy = squares.slice();
 
-  // berisi sebuah array digunakan untuk menyimpan keadaan terakhir dari history 
-  // yang akan di parsing ke element Board
-  const currentSquare = history[currentMove];
-
-  function handlePlay(nextSquares){
-    const nextHistory = [...history.slice(0, currentMove + 1),nextSquares];
-    setHistory(nextHistory);
-    setCurrentMove(nextHistory.length - 1);
-    setXIsNext(!xIsNext);
-  }
-
-  function jumpTo(nextMove){
-    setCurrentMove(nextMove);
-    setXIsNext(nextMove % 2 === 0);
-  }
-
-  const move = history.map((squares,indexMove) => {
-    let description;
-    if (indexMove > 0){
-      description = `Pergi Ke Langka #${indexMove}`;
+    if(xIsNext){
+      squaresCopy[index] = "X";
     }else{
-      description = `Pergi Ke Awal Permainan`;
+      squaresCopy[index] = "O";
     }
 
-    return (<li key={indexMove}>
-      <button type="button" onClick={() => {jumpTo(indexMove)}}>{description}</button>
-    </li>)
-  })
+    setSquares(squaresCopy);
+    setXIsnext(!xIsNext);
+  }
 
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquare} onPlay={handlePlay} />
-      </div>
-      <div className="game-info">
-        <ol>
-          {move}
-        </ol>
-      </div>
+  const winner = calculateWinner(squares);
+  let message;
+  if (winner) {
+    message = `winner : ${winner}`;
+  }else{
+    message = `pemain selanjutnya : ${(xIsNext) ? "X" : "O"}`
+  }
+
+  return (<>
+    <div className="status">{message}</div>
+    <div className="board">
+      {squares.map((square, index) => (
+        <Square key={index} value={square} onSquareClick={() => handleSquareClick(index)}/>
+      ))}
     </div>
-  )
+    </>)
+}
+
+function Square({value, onSquareClick}){
+  return <button className="square" onClick={onSquareClick}>{value}</button>
+}
+
+function calculateWinner(squares){
+  const line = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ]
+
+  for (let index = 0; index < line.length; index++) {
+    const [a,b,c] = line[index];
+    if (squares[a] === squares[b] && squares[b] === squares[c]){
+      return squares[a];
+    }
+  }
+
+  return null;
 }
