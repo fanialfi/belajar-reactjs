@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/elements/button";
 import CardProduct from "../components/fragments/cardProduct";
 
 const products = [
@@ -16,9 +19,33 @@ const products = [
   }
 ]
 
+
+const data = JSON.parse(localStorage.getItem("data"));
+
 const ProductPage = () => {
+  const navigate = useNavigate();
+    useEffect(()=>{
+      if(!data?.isLogin){
+        navigate("/login");
+      }
+    }, [navigate])
+  
+  
+  const handleLogout = () => {
+    const newData = {
+      email: data.email,
+      password: data.password,
+      isLogin: false,
+    }
+    localStorage.setItem("data",JSON.stringify(newData))
+    window.location.href = "/login"
+  }
   return (
-    <div className="flex justify-center py-5">
+   <>
+   <nav className="flex justify-end h-20 bg-blue-600 text-white items-center px-10 ">{data?.email}
+   <Button classname="ml-5 bg-black " onClick={handleLogout}>Logout</Button>
+   </nav>
+     <div className="flex justify-center py-5">
       {products.map((product) => (
         <CardProduct key={product.id}>
         <CardProduct.Header image={product.image}/>
@@ -29,6 +56,7 @@ const ProductPage = () => {
       </CardProduct>
       ))}
     </div>
+   </>
   )
 }
 
