@@ -1,21 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/elements/button";
 import CardProduct from "../components/fragments/cardProduct";
 
 const products = [
   {
-    id:0,
+    id:1,
     title:"sepatu baru gan",
     image:"https://source.unsplash.com/300x300?sepatu",
     description:"lorem ipsum dolor sit amet",
-    price :"Rp. 1.000.000"
+    price :1000000
   },{
-    id:1,
+    id:2,
     title:"ini adalah tas sekolah",
     image:"https://source.unsplash.com/300x300?bag",
     description:"kamu bisa sekolah dengan menggunakan tas yang kece abis ini",
-    price:"Rp. 200.000"
+    price:200000
+  },{
+    id:3,
+    tile:"sepatu adadong",
+    image:"https://source.unsplash.com/301x301?sepatu",
+    description:"sepatu dari brand adadong",
+    price:500000
   }
 ]
 
@@ -23,6 +29,12 @@ const products = [
 const data = JSON.parse(localStorage.getItem("data"));
 
 const ProductPage = () => {
+  const [cart, setCart] = useState([
+    {
+      id:1,
+      qty:1,
+    }
+  ])
   const navigate = useNavigate();
     useEffect(()=>{
       if(!data?.isLogin){
@@ -40,21 +52,60 @@ const ProductPage = () => {
     localStorage.setItem("data",JSON.stringify(newData))
     window.location.href = "/login"
   }
+
+  const handleAddToCart = (productId) => {
+    if(cart.find((item) => item.id == productId)){
+      setCart(
+        cart.map((item) => item.id === productId ? {...item,qty:item.qty + 1} : item)
+      )
+    }else{
+      setCart([...cart,{id:productId,qty:1}])
+    }
+  }
+
   return (
    <>
    <nav className="flex justify-end h-20 bg-blue-600 text-white items-center px-10 ">{data?.email}
    <Button classname="ml-5 bg-black " onClick={handleLogout}>Logout</Button>
    </nav>
      <div className="flex justify-center py-5">
-      {products.map((product) => (
+      <div className="w-4/6 flex flex-wrap">
+        {products.map((product) => (
         <CardProduct key={product.id}>
         <CardProduct.Header image={product.image}/>
         <CardProduct.Body title={product.title}>
           {product.description}
         </CardProduct.Body>
-        <CardProduct.Footer price={product.price}/>
-      </CardProduct>
-      ))}
+        <CardProduct.Footer price={product.price} id={product.id} handleAddToCart={handleAddToCart}/>
+        </CardProduct>
+        ))}
+      </div>
+      <div className="w-2/6">
+        <h1 className="text-3xl font-bold text-blue-600 ml-5 mb-2">Cart</h1>
+        <table className="text-left table-auto border-separate border-spacing-x-5">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item) => {
+              const product = products.find((product) => product.id == item.id)
+              return (
+                <tr key={item.id}>
+                  <td>{product?.title}</td>
+                  <td>{product?.price.toLocaleString('id-ID',{style:"currency",currency:"IDR"})}</td>
+                  <td>{item?.qty}</td>
+                  <td>{(item?.qty * product?.price).toLocaleString("id-ID",{style:"currency",currency:"IDR"})}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
    </>
   )

@@ -2,7 +2,7 @@ import Button from "../elements/button"
 
 function CardProduct({children}) {
   return (
-    <div className="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow mx-2 flex flex-col justify-between">
+    <div className="w-full my-2 max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow mx-2 flex flex-col justify-between">
       {children}
     </div>
   )
@@ -27,11 +27,11 @@ function Body({title, children}){
   )
 }
 
-function Footer({price}){
+function Footer({price, handleAddToCart,id}){
   return (
     <div className="flex items-center justify-between px-5 pb-5">
-      <span className="text-xl font-bold text-white">{price}</span>
-      <Button classname="bg-blue-600">add to cart</Button>
+      <span className="text-xl font-bold text-white">Rp. {price.toLocaleString('id-ID',{styles:'currency',currency:"IDR"})}</span>
+      <Button classname="bg-blue-600" onClick={() => handleAddToCart(id)}>add to cart</Button>
     </div>
   )
 }
