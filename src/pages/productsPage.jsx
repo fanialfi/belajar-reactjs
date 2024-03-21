@@ -29,18 +29,31 @@ const products = [
 const data = JSON.parse(localStorage.getItem("data"));
 
 const ProductPage = () => {
-  const [cart, setCart] = useState([
-    {
-      id:1,
-      qty:1,
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  // useEffect adalah life cycle di stateless component
+  useEffect(()=>{
+    setCart(JSON.parse(localStorage.getItem("cart")) || [])
+  },[]) // dengan menggunakan dependency kosong, maka akan dianggap sebagai component did mount
+
+  useEffect(()=>{
+    if(cart.length > 0){
+      const sum = cart.reduce((acc, cur) => {
+        const product = products.find((product) => product.id == cur.id);
+        return acc + product.price * cur.qty;
+      },0);
+      setTotalPrice(sum);
+      localStorage.setItem("cart",JSON.stringify(cart))
     }
-  ])
+  },[cart])
+
   const navigate = useNavigate();
-    useEffect(()=>{
-      if(!data?.isLogin){
-        navigate("/login");
-      }
-    }, [navigate])
+  useEffect(()=>{
+    if(!data?.isLogin){
+      navigate("/login");
+    }
+  }, [navigate])
   
   
   const handleLogout = () => {
@@ -103,6 +116,10 @@ const ProductPage = () => {
                 </tr>
               )
             })}
+            <tr>
+              <td colSpan={3}><b>Total Price</b></td>
+              <td><b>{totalPrice.toLocaleString("id-ID",{style:"currency",currency:"IDR"})}</b></td>
+            </tr>
           </tbody>
         </table>
       </div>
