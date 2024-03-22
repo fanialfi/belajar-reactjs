@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/elements/button";
 import CardProduct from "../components/fragments/cardProduct";
@@ -46,7 +46,7 @@ const ProductPage = () => {
       setTotalPrice(sum);
       localStorage.setItem("cart",JSON.stringify(cart))
     }
-  },[cart])
+  },[cart]) // dianggap sebagai component did update
 
   const navigate = useNavigate();
   useEffect(()=>{
@@ -75,6 +75,22 @@ const ProductPage = () => {
       setCart([...cart,{id:productId,qty:1}])
     }
   }
+
+  // useRef
+  const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
+  const handleAddToCartRef = (id) => {
+    cartRef.current = [...cartRef.current,{id:id,qty:1}]
+    localStorage.setItem("cart",JSON.stringify(cartRef.current))
+  }
+
+  const totalPriceRef = useRef(null);
+  useEffect(()=>{
+    if(cart.length > 0){
+      totalPriceRef.current.style.display = "table-row"
+    } else {
+      totalPriceRef.current.style.display = "none"
+    }
+  },[cart])
 
   return (
    <>
@@ -116,7 +132,7 @@ const ProductPage = () => {
                 </tr>
               )
             })}
-            <tr>
+            <tr ref={totalPriceRef}>
               <td colSpan={3}><b>Total Price</b></td>
               <td><b>{totalPrice.toLocaleString("id-ID",{style:"currency",currency:"IDR"})}</b></td>
             </tr>
