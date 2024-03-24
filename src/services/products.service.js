@@ -1,0 +1,12 @@
+import axios from "axios";
+
+function getProducts(callback){
+    axios.get("https://fakestoreapi.com/products")
+    .then((res) => {
+        callback(res?.data)
+    }).catch((error) =>{
+        console.log(error.message)
+    })
+}
+
+export default getProducts;

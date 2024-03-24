@@ -2,43 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/elements/button";
 import CardProduct from "../components/fragments/cardProduct";
-
-const products = [
-  {
-    id:1,
-    title:"sepatu baru gan",
-    image:"https://source.unsplash.com/300x300?sepatu",
-    description:"lorem ipsum dolor sit amet",
-    price :1000000
-  },{
-    id:2,
-    title:"ini adalah tas sekolah",
-    image:"https://source.unsplash.com/300x300?bag",
-    description:"kamu bisa sekolah dengan menggunakan tas yang kece abis ini",
-    price:200000
-  },{
-    id:3,
-    tile:"sepatu adadong",
-    image:"https://source.unsplash.com/301x301?sepatu",
-    description:"sepatu dari brand adadong",
-    price:500000
-  }
-]
-
+import getProducts from "../services/products.service";
 
 const data = JSON.parse(localStorage.getItem("data"));
 
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [products, setProducts] = useState([])
 
   // useEffect adalah life cycle di stateless component
   useEffect(()=>{
     setCart(JSON.parse(localStorage.getItem("cart")) || [])
   },[]) // dengan menggunakan dependency kosong, maka akan dianggap sebagai component did mount
 
+  useEffect(() => {
+    getProducts((data) => {
+      setProducts(data)
+    })
+  },[])
+
   useEffect(()=>{
-    if(cart.length > 0){
+    if(products.length > 0 && cart.length > 0){
       const sum = cart.reduce((acc, cur) => {
         const product = products.find((product) => product.id == cur.id);
         return acc + product.price * cur.qty;
@@ -46,7 +31,7 @@ const ProductPage = () => {
       setTotalPrice(sum);
       localStorage.setItem("cart",JSON.stringify(cart))
     }
-  },[cart]) // dianggap sebagai component did update
+  },[cart,products]) // dianggap sebagai component did update
 
   const navigate = useNavigate();
   useEffect(()=>{
@@ -76,13 +61,6 @@ const ProductPage = () => {
     }
   }
 
-  // useRef
-  const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
-  const handleAddToCartRef = (id) => {
-    cartRef.current = [...cartRef.current,{id:id,qty:1}]
-    localStorage.setItem("cart",JSON.stringify(cartRef.current))
-  }
-
   const totalPriceRef = useRef(null);
   useEffect(()=>{
     if(cart.length > 0){
@@ -99,7 +77,7 @@ const ProductPage = () => {
    </nav>
      <div className="flex justify-center py-5">
       <div className="w-4/6 flex flex-wrap">
-        {products.map((product) => (
+        {products.length > 0 &&  products.map((product) => (
         <CardProduct key={product.id}>
         <CardProduct.Header image={product.image}/>
         <CardProduct.Body title={product.title}>
@@ -121,20 +99,20 @@ const ProductPage = () => {
             </tr>
           </thead>
           <tbody>
-            {cart.map((item) => {
+            {products.length > 0 && cart.map((item) => {
               const product = products.find((product) => product.id == item.id)
               return (
                 <tr key={item.id}>
-                  <td>{product?.title}</td>
-                  <td>{product?.price.toLocaleString('id-ID',{style:"currency",currency:"IDR"})}</td>
+                  <td>{product?.title.substring(0,10)} ...</td>
+                  <td>{product?.price.toLocaleString('id-ID',{style:"currency",currency:"USD"})}</td>
                   <td>{item?.qty}</td>
-                  <td>{(item?.qty * product?.price).toLocaleString("id-ID",{style:"currency",currency:"IDR"})}</td>
+                  <td>{(item?.qty * product?.price).toLocaleString("id-ID",{style:"currency",currency:"USD"})}</td>
                 </tr>
               )
             })}
             <tr ref={totalPriceRef}>
               <td colSpan={3}><b>Total Price</b></td>
-              <td><b>{totalPrice.toLocaleString("id-ID",{style:"currency",currency:"IDR"})}</b></td>
+              <td><b>{totalPrice.toLocaleString("id-ID",{style:"currency",currency:"USD"})}</b></td>
             </tr>
           </tbody>
         </table>
