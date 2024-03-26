@@ -9,4 +9,13 @@ function getProducts(callback){
     })
 }
 
-export default getProducts;
+function getDetailProduct(id,callback){
+    axios.get(`https://fakestoreapi.com/products/${id}`)
+    .then((res) => {
+        callback(res?.data)
+    }).catch((error) =>{
+        console.log(error.message)
+    })
+}
+
+export {getProducts,getDetailProduct}
