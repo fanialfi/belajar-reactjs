@@ -13,8 +13,6 @@ const DetailProductPage = ()=>{
     })
   },[id])
 
-  console.log(product)
-
   return (
    <div className="w-100 min-h-screen flex justify-center items-center">
     {Object.keys(product).length > 0 && 

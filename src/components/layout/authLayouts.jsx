@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types"
 
 export default function AuthLayout({children, title, type}){
   return (
@@ -17,7 +18,7 @@ function Navigation({type}){
   if(type === "login"){
     return (
        <p className="text-sm mt-5 text-center">
-          Don't have an account ?
+          {"Don't have an account ?"}
           <Link to="/register" className="font-bold text-blue-500"> register</Link>
         </p>
     )
@@ -28,4 +29,15 @@ function Navigation({type}){
           <Link to="/login" className="font-bold text-blue-500"> login</Link>
         </p>
   )
+}
+
+// handling props validation
+AuthLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  type: PropTypes.string
+}
+
+Navigation.propTypes = {
+  type: PropTypes.string
 }

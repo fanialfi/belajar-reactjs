@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import Button from "../elements/button"
+import PropType from "prop-types"
 
 function CardProduct({children}) {
   return (
@@ -35,6 +36,27 @@ function Footer({price, handleAddToCart,id}){
       <Button classname="bg-blue-600" onClick={() => handleAddToCart(id)}>add to cart</Button>
     </div>
   )
+}
+
+// handling prop type validation
+CardProduct.propTypes = {
+  children: PropType.node.isRequired
+}
+
+Header.propTypes = {
+  id: PropType.number.isRequired,
+  image: PropType.string
+}
+
+Body.propTypes = {
+  title: PropType.string.isRequired,
+  children: PropType.string
+}
+
+Footer.propTypes = {
+  price: PropType.number,
+  handleAddToCart: PropType.func,
+  id: PropType.number.isRequired
 }
 
 // di javascript lebih tepatnya dalam konteks react
