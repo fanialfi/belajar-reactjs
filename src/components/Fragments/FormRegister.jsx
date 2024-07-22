@@ -4,7 +4,7 @@ import InputElm from "../Elements/Input";
 
 function FormRegister() {
   return (
-    <form action="">
+    <form action="" className="text-center">
       <InputElm inputName="username" inputType="text">
         Username
       </InputElm>

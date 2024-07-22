@@ -6,7 +6,7 @@ import Input from "./Input";
 function InputElm({ inputType, children, inputName }) {
   const [isField, setIsField] = useState(false);
   const handleInputchange = (ev) => {
-    setIsField(ev.target.value !== "");
+    setIsField(ev.target.value.trim() !== "");
   };
 
   return (
