@@ -13,7 +13,7 @@ export default function ButtonFunc({ type, children }) {
   return (
     <button
       type="button"
-      className={`h-10 px-6 font-semibold rounded-md ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500`}
+      className={`p-2 px-3 font-semibold rounded-md ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500`}
     >
       {children || "..."}
     </button>

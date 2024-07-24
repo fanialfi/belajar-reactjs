@@ -9,8 +9,6 @@ function AuthLayout({ children, authTitle, authSubTitle, typeAuth }) {
         <p className="font-base text-slate-600 text-center mb-8">{authSubTitle}</p>
         {children}
         <p className="text-center mt-6 text-slate-800">
-          {/* untuk kondisional rendering yang memerlukan dua kondisi, gunakan ternary operator, if else */}
-
           {typeAuth === "login" ? (
             <>
               Dont have an account?{" "}
@@ -26,19 +24,6 @@ function AuthLayout({ children, authTitle, authSubTitle, typeAuth }) {
               </Navigation>
             </>
           )}
-
-          {/* untuk kondisional rendering yang memerlukan satu kondisi, gunakan operator AND */}
-          {/* {typeAuth === "login" && (
-            <Link to="/register" className="text-sky-500 font-bold">
-              Sign Up
-            </Link>
-          )}
-
-          {typeAuth === "register" && (
-            <Link to="/login" className="text-sky-500 font-bold">
-              Sign In
-            </Link>
-          )} */}
         </p>
       </div>
     </div>
