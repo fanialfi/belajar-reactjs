@@ -5,9 +5,9 @@ import CardFooter from "../Elements/CardFooter";
 
 function CardProduct({ children }) {
   return (
-    <a href="#" className="w-full max-w-60 border border-slate-200 rounded-lg shadow overflow-hidden pb-2">
+    <div className="p-2 flex flex-col w-40 rounded-md h-52 box-border hover:shadow-lg cursor-pointer">
       {children}
-    </a>
+    </div>
   );
 }
 

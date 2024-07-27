@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
-import CardBodyTitle from "./CardBodyTitle";
-import CardBodyDesc from "./CardBodyDesc";
 
-function CardBody({ children }) {
-  return <div className="py-2 px-1">{children}</div>;
+function CardBody({ title }) {
+  return (
+    <div className="py-1">
+      <h4 className="truncate">{title}</h4>
+    </div>
+  );
 }
 
 CardBody.propTypes = {
-  children: PropTypes.element,
+  title: PropTypes.string.isRequired,
 };
-
-CardBody.Title = CardBodyTitle;
-CardBody.Desc = CardBodyDesc;
 
 export default CardBody;

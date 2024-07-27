@@ -1,28 +1,17 @@
 import CardProduct from "../components/Fragments/CardProducts";
 import ProductsLayout from "../components/Layouts/ProductsLayout";
+import dataDumy from "/src/assets/data.json";
 
 export default function ProductsPage() {
   return (
     <ProductsLayout>
-      <CardProduct>
-        <CardProduct.Header imageSrc="/images/laptop.webp" />
-        <CardProduct.Body>
-          <CardProduct.Body.Title>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, architecto.
-          </CardProduct.Body.Title>
-        </CardProduct.Body>
-        <CardProduct.Footer price="Rp. 1.000.000" />
-      </CardProduct>
-
-      <CardProduct>
-        <CardProduct.Header imageSrc="/images/laptop.webp" />
-        <CardProduct.Body>
-          <CardProduct.Body.Title>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, architecto.
-          </CardProduct.Body.Title>
-        </CardProduct.Body>
-        <CardProduct.Footer price="Rp. 1.000.000" />
-      </CardProduct>
+      {dataDumy.map((data) => (
+        <CardProduct key={data?.id}>
+          <CardProduct.Header imageSrc={data?.image} />
+          <CardProduct.Body title={data?.title} />
+          <CardProduct.Footer price={data?.price} />
+        </CardProduct>
+      ))}
     </ProductsLayout>
   );
 }
