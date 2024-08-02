@@ -68,5 +68,145 @@
     "description": "Microwave dengan kapasitas 20 liter, fitur grill",
     "price": "Rp 1.000.000",
     "image": "/images/microwave_oven.webp"
+  },
+  {
+    "id": 11,
+    "title": "Smartphone Android",
+    "description": "Smartphone dengan layar 6.5 inch, RAM 4GB, ROM 64GB",
+    "price": "Rp 2.500.000",
+    "image": "/images/smartphone_android.webp"
+  },
+  {
+    "id": 12,
+    "title": "Laptop Gaming",
+    "description": "Laptop gaming dengan prosesor Intel i7, RAM 16GB, SSD 512GB",
+    "price": "Rp 15.000.000",
+    "image": "/images/laptop_gaming.webp"
+  },
+  {
+    "id": 13,
+    "title": "Kamera DSLR",
+    "description": "Kamera DSLR dengan resolusi 24MP, lensa 18-55mm",
+    "price": "Rp 7.000.000",
+    "image": "/images/kamera_dslr.webp"
+  },
+  {
+    "id": 14,
+    "title": "Headphone Bluetooth",
+    "description": "Headphone wireless dengan fitur noise cancelling",
+    "price": "Rp 1.500.000",
+    "image": "/images/headphone_bluetooth.webp"
+  },
+  {
+    "id": 15,
+    "title": "Smart TV",
+    "description": "Smart TV 4K dengan ukuran 55 inch",
+    "price": "Rp 8.000.000",
+    "image": "/images/smart_tv.webp"
+  },
+  {
+    "id": 16,
+    "title": "Smartwatch",
+    "description": "Jam tangan pintar dengan berbagai fitur kesehatan",
+    "price": "Rp 1.200.000",
+    "image": "/images/smartwatch.webp"
+  },
+  {
+    "id": 17,
+    "title": "Kulkas 2 Pintu",
+    "description": "Kulkas dengan kapasitas 300 liter, teknologi inverter",
+    "price": "Rp 3.500.000",
+    "image": "/images/kulkas_2_pintu.webp"
+  },
+  {
+    "id": 18,
+    "title": "Mesin Cuci",
+    "description": "Mesin cuci front loading dengan kapasitas 7kg",
+    "price": "Rp 3.000.000",
+    "image": "/images/mesin_cuci.webp"
+  },
+  {
+    "id": 19,
+    "title": "AC Inverter",
+    "description": "AC dengan teknologi inverter, kapasitas 1PK",
+    "price": "Rp 4.000.000",
+    "image": "/images/ac_inverter.webp"
+  },
+  {
+    "id": 20,
+    "title": "Microwave Oven",
+    "description": "Microwave dengan kapasitas 20 liter, fitur grill",
+    "price": "Rp 1.000.000",
+    "image": "/images/microwave_oven.webp"
+  },
+  {
+    "id": 21,
+    "title": "Smartphone Android",
+    "description": "Smartphone dengan layar 6.5 inch, RAM 4GB, ROM 64GB",
+    "price": "Rp 2.500.000",
+    "image": "/images/smartphone_android.webp"
+  },
+  {
+    "id": 22,
+    "title": "Laptop Gaming",
+    "description": "Laptop gaming dengan prosesor Intel i7, RAM 16GB, SSD 512GB",
+    "price": "Rp 15.000.000",
+    "image": "/images/laptop_gaming.webp"
+  },
+  {
+    "id": 23,
+    "title": "Kamera DSLR",
+    "description": "Kamera DSLR dengan resolusi 24MP, lensa 18-55mm",
+    "price": "Rp 7.000.000",
+    "image": "/images/kamera_dslr.webp"
+  },
+  {
+    "id": 24,
+    "title": "Headphone Bluetooth",
+    "description": "Headphone wireless dengan fitur noise cancelling",
+    "price": "Rp 1.500.000",
+    "image": "/images/headphone_bluetooth.webp"
+  },
+  {
+    "id": 25,
+    "title": "Smart TV",
+    "description": "Smart TV 4K dengan ukuran 55 inch",
+    "price": "Rp 8.000.000",
+    "image": "/images/smart_tv.webp"
+  },
+  {
+    "id": 26,
+    "title": "Smartwatch",
+    "description": "Jam tangan pintar dengan berbagai fitur kesehatan",
+    "price": "Rp 1.200.000",
+    "image": "/images/smartwatch.webp"
+  },
+  {
+    "id": 27,
+    "title": "Kulkas 2 Pintu",
+    "description": "Kulkas dengan kapasitas 300 liter, teknologi inverter",
+    "price": "Rp 3.500.000",
+    "image": "/images/kulkas_2_pintu.webp"
+  },
+  {
+    "id": 28,
+    "title": "Mesin Cuci",
+    "description": "Mesin cuci front loading dengan kapasitas 7kg",
+    "price": "Rp 3.000.000",
+    "image": "/images/mesin_cuci.webp"
+  },
+  {
+    "id": 29,
+    "title": "AC Inverter",
+    "description": "AC dengan teknologi inverter, kapasitas 1PK",
+    "price": "Rp 4.000.000",
+    "image": "/images/ac_inverter.webp"
+  },
+  {
+    "id": 30,
+    "title": "Microwave Oven",
+    "description": "Microwave dengan kapasitas 20 liter, fitur grill",
+    "price": "Rp 1.000.000",
+    "image": "/images/microwave_oven.webp"
   }
 ]

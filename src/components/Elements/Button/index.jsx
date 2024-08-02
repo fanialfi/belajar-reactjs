@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { forwardRef } from "react";
 
 // menggunakan functional components ( stateless components )
 // react component yang dibuat dengan menggunakan javascript function biasa,
@@ -9,19 +10,27 @@ import PropTypes from "prop-types";
 // lalu penangkapan nama props di react component bisa dengan langsung menuliskan props, atau langsung di destructuring ke nama properti nya
 // jika tidak di destructuring, maka pengaksesannya degan cara menuliskan props.namaProperti
 
-export default function ButtonFunc({ type, children }) {
+const ButtonFunc = forwardRef(({ type, children, onClick, typeButton = "button" }, ref) => {
   return (
     <button
-      type="button"
-      className={`p-2 px-3 font-semibold rounded-md ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500`}
+      type={typeButton}
+      className={`p-2 px-3 font-semibold rounded-md ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500 mx-4`}
+      onClick={onClick}
+      ref={ref}
     >
       {children || "..."}
     </button>
   );
-}
+});
+
+ButtonFunc.displayName = "ButtonFunc";
 
 // props validation
 ButtonFunc.propTypes = {
   type: PropTypes.arrayOf(PropTypes.string).isRequired,
+  typeButton: PropTypes.string,
   children: PropTypes.any,
+  onClick: PropTypes.func,
 };
+
+export default ButtonFunc;
