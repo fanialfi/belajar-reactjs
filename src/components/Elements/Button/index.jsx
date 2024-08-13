@@ -14,7 +14,7 @@ const ButtonFunc = forwardRef(({ type, children, onClick, typeButton = "button" 
   return (
     <button
       type={typeButton}
-      className={`p-2 px-3 font-semibold rounded-md ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500 mx-4`}
+      className={`h-10 px-6 font-semibold rounded-md border ${type[0]} text-${type[1]} hover:shadow-md hover:shadow-slate-500 mx-4`}
       onClick={onClick}
       ref={ref}
     >

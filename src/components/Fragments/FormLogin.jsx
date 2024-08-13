@@ -9,7 +9,7 @@ function FormLogin() {
     const password = ev.target.password.value;
     localStorage.setItem("username", username);
     localStorage.setItem("password", password);
-    window.location.href = "/products";
+    window.location.href = "/dashboard/products";
   };
 
   return (

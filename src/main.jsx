@@ -7,6 +7,9 @@ import RegisterPage from "./Pages/register";
 import HomePage from "./Pages/home";
 import ErrorPage from "./Pages/404";
 import ProductsPage from "./Pages/products";
+import Dashboard from "./Pages/dashboard";
+import { Navigate } from "react-router-dom";
+import ProductDetailPage from "./Pages/productDetail";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +26,22 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: "/products",
-    element: <ProductsPage />,
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "products",
+        element: <ProductsPage />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetailPage />,
+      },
+      {
+        index: true,
+        element: <Navigate to={"/dashboard/products"} replace />,
+      },
+    ],
   },
 ]);
 

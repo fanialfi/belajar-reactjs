@@ -3,9 +3,12 @@ import CardHeader from "../Elements/CardHeader";
 import CardBody from "../Elements/CardBody";
 import CardFooter from "../Elements/CardFooter";
 
-function CardProduct({ children }) {
+function CardProduct({ children, handleClick }) {
   return (
-    <div className="p-2 flex flex-col w-40 rounded-md h-52 box-border hover:shadow-lg cursor-pointer">
+    <div
+      className="p-2 flex flex-col w-40 rounded-md h-52 box-border hover:shadow-lg cursor-pointer"
+      onClick={handleClick}
+    >
       {children}
     </div>
   );
@@ -13,6 +16,7 @@ function CardProduct({ children }) {
 
 CardProduct.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
+  handleClick: PropTypes.func,
 };
 
 CardProduct.Header = CardHeader;
