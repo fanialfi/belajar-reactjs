@@ -11,5 +11,5 @@ ProductBody.title = ProductBodyTitle;
 ProductBody.desc = ProductBodyDesc;
 ProductBody.footer = ProductBodyFooter;
 ProductBody.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.node,
 };

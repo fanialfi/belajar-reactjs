@@ -10,6 +10,7 @@ import ProductsPage from "./Pages/products";
 import Dashboard from "./Pages/dashboard";
 import { Navigate } from "react-router-dom";
 import ProductDetailPage from "./Pages/productDetail";
+import CartPage from "./Pages/cart";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "products/:id",
         element: <ProductDetailPage />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
       {
         index: true,
