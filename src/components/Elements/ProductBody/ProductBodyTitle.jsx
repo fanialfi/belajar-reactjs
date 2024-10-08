@@ -12,5 +12,5 @@ export default function ProductBodyTitle({ title, price }) {
 
 ProductBodyTitle.propTypes = {
   title: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
 };

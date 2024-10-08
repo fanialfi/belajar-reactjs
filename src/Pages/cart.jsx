@@ -20,7 +20,11 @@ export default function CartPage() {
 
     console.log("button decrement is called");
     setCart(newCarts);
-    localStorage.setItem("cart", JSON.stringify(newCarts));
+    try {
+      localStorage.setItem("cart", JSON.stringify(newCarts));
+    } catch (error) {
+      console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
+    }
   };
 
   const handleIncrement = function (id) {
@@ -28,11 +32,22 @@ export default function CartPage() {
 
     console.log("button increment is called");
     setCart(newCarts);
-    localStorage.setItem("cart", JSON.stringify(newCarts));
+    try {
+      localStorage.setItem("cart", JSON.stringify(newCarts));
+    } catch (error) {
+      localStorage.setItem("cart", "[]");
+      console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
+    }
   };
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")) || []);
+    try {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      setCart(cart || []);
+    } catch (error) {
+      setCart([]);
+      console.error(`error saat parsing string json\nmessage : ${error}`);
+    }
   }, []);
 
   useEffect(() => {

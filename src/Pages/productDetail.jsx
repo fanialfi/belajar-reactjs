@@ -11,7 +11,12 @@ export default function ProductDetailPage() {
   let { id } = useParams();
   const [productDetail, setProductDetail] = useState(undefined);
   const handleOnClick = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = [];
+    try {
+      cart = JSON.parse(localStorage.getItem("cart")) || [];
+    } catch (error) {
+      console.log(`error saat memparsing JSON string\nerror message : ${error}`);
+    }
     const existingProductIndex = cart.findIndex((elm) => elm?.id == productDetail?.id);
 
     if (existingProductIndex !== -1) {
@@ -27,7 +32,12 @@ export default function ProductDetailPage() {
     }
 
     // update localstorage dengan cart
-    localStorage.setItem("cart", JSON.stringify(cart));
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (error) {
+      console.error(`error saat memparsing json ke string\nmessage : ${error}`);
+      localStorage.setItem("cart", "[]");
+    }
   };
 
   useEffect(() => {

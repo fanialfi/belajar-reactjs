@@ -11,5 +11,5 @@ export default function CardFooter({ price }) {
 }
 
 CardFooter.propTypes = {
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
