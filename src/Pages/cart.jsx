@@ -8,6 +8,21 @@ export default function CartPage() {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
 
+  // teknik debouncing untuk memastikan function hanya di eksekusi
+  // setelah serangkaian tindakan cepat atau berulang
+  // dan hanya akan dijalankan sekali dalam jangka waktu tertentu
+  function debouncingIncrementDecrement(func, delay) {
+    let timeoutId;
+
+    return function (...args) {
+      clearTimeout(timeoutId); // hapus timer yang ada
+      timeoutId = setTimeout(() => {
+        // daftarkan timer yang baru
+        func.apply(this, args); // jalankan function setelah delay
+      }, delay);
+    };
+  }
+
   const handleDecrement = function (id) {
     const newCarts = cart.map((crt) => {
       switch (crt?.id) {
@@ -26,6 +41,7 @@ export default function CartPage() {
       console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
     }
   };
+  const debounceHandleDecrement = debouncingIncrementDecrement(handleDecrement, 300);
 
   const handleIncrement = function (id) {
     const newCarts = cart.map((crt) => (crt?.id == id ? { ...crt, qty: crt?.qty + 1 } : crt));
@@ -39,6 +55,7 @@ export default function CartPage() {
       console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
     }
   };
+  const debounceHandleIncrement = debouncingIncrementDecrement(handleIncrement, 300);
 
   useEffect(() => {
     try {
@@ -65,8 +82,8 @@ export default function CartPage() {
       <CartBody products={products}>
         {products.map((item, index) => (
           <CartBody.cart
-            handleDecrement={handleDecrement}
-            handleIncrement={handleIncrement}
+            handleDecrement={debounceHandleDecrement}
+            handleIncrement={debounceHandleIncrement}
             index={index}
             key={index}
             product={item}
