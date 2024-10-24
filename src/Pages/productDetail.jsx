@@ -15,9 +15,13 @@ export default function ProductDetailPage() {
     try {
       cart = JSON.parse(localStorage.getItem("cart")) || [];
     } catch (error) {
-      console.log(`error saat memparsing JSON string\nerror message : ${error}`);
+      console.log(
+        `error saat memparsing JSON string\nerror message : ${error}`
+      );
     }
-    const existingProductIndex = cart.findIndex((elm) => elm?.id == productDetail?.id);
+    const existingProductIndex = cart.findIndex(
+      (elm) => elm?.id == productDetail?.id
+    );
 
     if (existingProductIndex !== -1) {
       // kalau produk sudah ada di cart, maka tambahkan quantity
@@ -49,7 +53,10 @@ export default function ProductDetailPage() {
       <CardProductDetail>
         <ProductImageHeader imageUrl={productDetail?.image} />
         <ProductBody>
-          <ProductBody.title price={productDetail?.price} title={productDetail?.title} />
+          <ProductBody.title
+            price={productDetail?.price}
+            title={productDetail?.title}
+          />
           <ProductBody.desc>{productDetail?.description}</ProductBody.desc>
           <ProductBody.footer btnOnClick={handleOnClick} />
         </ProductBody>

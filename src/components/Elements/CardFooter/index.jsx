@@ -4,7 +4,7 @@ export default function CardFooter({ price }) {
   return (
     <div className="py-1">
       <p className="font-semibold tracking-tighter">
-        {price.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+        {price.toLocaleString("id-ID", { style: "currency", currency: "USD" })}
       </p>
     </div>
   );

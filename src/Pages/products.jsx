@@ -1,19 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import CardProduct from "../components/Fragments/CardProducts";
 import ProductsLayout from "../components/Layouts/ProductsLayout";
-import dataDumy from "/src/assets/data.json";
+import { useEffect, useState } from "react";
+import { getProducts } from "../services/product.services";
 
 export default function ProductsPage() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
   const handleClick = (id) => {
-    const link = `/dashboard/products/${id}`;
+    const base64 = btoa(id);
+    const link = `/dashboard/products/${base64}`;
     navigate(link);
   };
 
+  useEffect(() => {
+    getProducts(setProducts);
+  }, []);
+
   return (
     <ProductsLayout>
-      {dataDumy.map((data) => (
-        <CardProduct key={data?.id} handleClick={() => handleClick(data?.id)}>
+      {products.map((data) => (
+        <CardProduct
+          key={data?.id}
+          handleClick={() => handleClick(data?.title)}
+        >
           <CardProduct.Header imageSrc={data?.image} />
           <CardProduct.Body title={data?.title} />
           <CardProduct.Footer price={data?.price} />
