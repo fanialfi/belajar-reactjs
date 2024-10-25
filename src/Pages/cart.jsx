@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import DataJson from "/src/assets/data.json";
 import ProductCartLayout from "../components/Layouts/ProductCartLayout";
 import CartHeader from "../components/Fragments/CartHeader";
 import CartBody from "../components/Fragments/CartBody";
+import { getProduct } from "../services/product.services";
 
 export default function CartPage() {
-  const [cart, setCart] = useState([]);
+  const [carts, setCarts] = useState([]);
   const [products, setProducts] = useState([]);
 
   // teknik debouncing untuk memastikan function hanya di eksekusi
@@ -24,7 +24,7 @@ export default function CartPage() {
   }
 
   const handleDecrement = function (id) {
-    const newCarts = cart.map((crt) => {
+    const newCarts = carts.map((crt) => {
       switch (crt?.id) {
         case id:
           return crt?.qty > 1 ? { ...crt, qty: crt?.qty - 1 } : crt;
@@ -34,20 +34,25 @@ export default function CartPage() {
     });
 
     console.log("button decrement is called");
-    setCart(newCarts);
+    setCarts(newCarts);
     try {
       localStorage.setItem("cart", JSON.stringify(newCarts));
     } catch (error) {
       console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
     }
   };
-  const debounceHandleDecrement = debouncingIncrementDecrement(handleDecrement, 300);
+  const debounceHandleDecrement = debouncingIncrementDecrement(
+    handleDecrement,
+    300
+  );
 
   const handleIncrement = function (id) {
-    const newCarts = cart.map((crt) => (crt?.id == id ? { ...crt, qty: crt?.qty + 1 } : crt));
+    const newCarts = carts.map((crt) =>
+      crt?.id == id ? { ...crt, qty: crt?.qty + 1 } : crt
+    );
 
     console.log("button increment is called");
-    setCart(newCarts);
+    setCarts(newCarts);
     try {
       localStorage.setItem("cart", JSON.stringify(newCarts));
     } catch (error) {
@@ -55,26 +60,41 @@ export default function CartPage() {
       console.error(`error saat memparsing JSON ke string\nmessage : ${error}`);
     }
   };
-  const debounceHandleIncrement = debouncingIncrementDecrement(handleIncrement, 300);
+  const debounceHandleIncrement = debouncingIncrementDecrement(
+    handleIncrement,
+    300
+  );
 
   useEffect(() => {
     try {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      setCart(cart || []);
+      const carts = JSON.parse(localStorage.getItem("cart"));
+      setCarts(carts || []);
     } catch (error) {
-      setCart([]);
+      setCarts([]);
       console.error(`error saat parsing string json\nmessage : ${error}`);
     }
   }, []);
 
   useEffect(() => {
-    const productCart = cart.flatMap((item) => {
-      return { ...DataJson.find((each) => item?.id == each?.id), ...{ qty: item?.qty } };
-    });
+    const fetchProducts = async () => {
+      try {
+        const promise = carts.map((cart) => getProduct(cart?.id));
 
-    setProducts(productCart);
+        // menunggu semua proses getProduct selesai
+        const products = await Promise.all(promise);
+        const productsWithQTY = carts.map((item, index) => ({
+          qty: item?.qty,
+          ...products[index],
+        }));
+        setProducts(productsWithQTY); // product hanya akan di set setelah data diterima
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProducts();
     console.log("useEffect hook is called because data cart is change");
-  }, [cart]);
+  }, [carts]);
 
   return (
     <ProductCartLayout>

@@ -8,8 +8,7 @@ export default function ProductsPage() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const handleClick = (id) => {
-    const base64 = btoa(id);
-    const link = `/dashboard/products/${base64}`;
+    const link = `/dashboard/products/${id}`;
     navigate(link);
   };
 
@@ -22,7 +21,7 @@ export default function ProductsPage() {
       {products.map((data) => (
         <CardProduct
           key={data?.id}
-          handleClick={() => handleClick(data?.title)}
+          handleClick={() => handleClick(data?.id)}
         >
           <CardProduct.Header imageSrc={data?.image} />
           <CardProduct.Body title={data?.title} />

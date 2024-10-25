@@ -7,7 +7,7 @@ export default function TotalAmount({ data }) {
       <span>
         {data
           .reduce((acc, cur) => cur?.price * cur?.qty + acc, 0)
-          .toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+          .toLocaleString("id-ID", { style: "currency", currency: "USD" })}
       </span>
     </div>
   );

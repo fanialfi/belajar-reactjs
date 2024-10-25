@@ -1,11 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dataDumy from "/src/assets/data.json";
-import { useState } from "react";
 import ProductDetailLayout from "../components/Layouts/ProductDetailLayout";
 import CardProductDetail from "../components/Fragments/CardProductDetail";
 import ProductImageHeader from "../components/Elements/ProductImageHeader";
 import ProductBody from "../components/Elements/ProductBody";
+import { getProduct } from "../services/product.services";
 
 export default function ProductDetailPage() {
   let { id } = useParams();
@@ -45,7 +44,11 @@ export default function ProductDetailPage() {
   };
 
   useEffect(() => {
-    setProductDetail(dataDumy.filter((item) => item.id == id)[0]);
+    const fetchProduct = async () => {
+      const result = await getProduct(id);
+      setProductDetail(result);
+    };
+    fetchProduct();
   }, [id]);
 
   return (
