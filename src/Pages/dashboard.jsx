@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import HeaderLayout from "../components/Layouts/HeaderLayout";
 import HeaderFragment from "../components/Fragments/Header";
 import Banner from "../components/Elements/Banner";
@@ -6,15 +6,24 @@ import NavigationFragment from "../components/Fragments/Navigation";
 import UlElement from "../components/Elements/Ul";
 import ButtonFunc from "../components/Elements/Button";
 import Variants from "../components/Elements/Button/variants";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import decodeJwt from "../services/decodejwt.service";
 
 export default function Dashboard() {
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const buttonRef = useRef(null);
-  const username = localStorage.getItem("username");
+
+  // menempatkan setUsername kedalam hook useEffect biar tidak terjadi re-render jika dipanggil langsung di tubuh component
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token != null) {
+      const decode = decodeJwt(token);
+      setUsername(decode?.user);
+    }
+  }, []);
 
   useEffect(() => {
     const button = buttonRef.current;
