@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ButtonFunc from "../components/Elements/Button";
 import Variants from "../components/Elements/Button/variants";
 
@@ -9,10 +10,14 @@ function HomePage() {
       </h1>
       <div className="flex gap-x-8">
         <ButtonFunc type={Variants.primary}>
-          <a href="/login">login</a>
+          <Link to="/login">
+            <p>login</p>
+          </Link>
         </ButtonFunc>
         <ButtonFunc type={Variants.primary}>
-          <a href="/register">register</a>
+          <Link to="/register">
+            <p>register</p>
+          </Link>
         </ButtonFunc>
       </div>
     </div>
